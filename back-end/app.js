@@ -2,7 +2,10 @@ const express = require("express");
 app = express();
 const cors = require("cors");
 const pool = require("./database/db");
-const { param } = require("express/lib/request");
+
+// middlewares
+app.use(express.json);
+app.use(cors);
 
 // routes
 app.get("/", (req, res) => {
@@ -15,17 +18,17 @@ app.get("/", (req, res) => {
 // create task
 app.post("/tasks", async (req, res) => {
   try {
-      console.log(req.body);
+    console.log(req.body);
     const { task_text, task_day, task_reminder } = req.body;
     const newTask = await pool.query(
-      "INSERT INTO taskTable(task_text, task_day, task_reminder) VALUES($1, $2, $3) RETURNING *;",
+      "INSERT INTO taskTable (task_text, task_day, task_reminder) VALUES($1, $2, $3) RETURNING *;",
       [task_text, task_day, task_reminder]
     );
 
     res.json(newTask.rows[0]);
     console.log("task created");
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
   }
 });
 
@@ -55,7 +58,7 @@ app.delete("/tasks/:id", async (req, res) => {
   }
 });
 
-const server = app.listen(8080, "0.0.0.0", () => {
+const server = app.listen(5000, "0.0.0.0", () => {
   const host = server.address().address;
   const port = server.address().port;
   console.log(`server is listening at http://${host}:${port}`);
