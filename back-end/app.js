@@ -10,6 +10,7 @@ app.get("/", (req, res) => {
     console.error(error);
   }
 });
+// get all tasks
 
 
 
