@@ -15,6 +15,7 @@ app.get("/", (req, res) => {
 // create task
 app.post("/tasks", async (req, res) => {
   try {
+      console.log(req.body);
     const { task_text, task_day, task_reminder } = req.body;
     const newTask = await pool.query(
       "INSERT INTO taskTable(task_text, task_day, task_reminder) VALUES($1, $2, $3) RETURNING *;",
