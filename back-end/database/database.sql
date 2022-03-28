@@ -10,7 +10,7 @@ SELECT
 FROM
   taskTable;
 INSERT INTO
-  taskTable (task_text, text_day, task_reminder)
+  taskTable (task_text, task_day, task_reminder)
 VALUES($ 1, $ 2, $ 3) RETURNING *;
 SELECT
   *
