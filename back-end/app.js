@@ -4,8 +4,8 @@ const cors = require("cors");
 const pool = require("./database/db");
 
 // middlewares
-app.use(express.json);
-app.use(cors);
+app.use(express.json());
+app.use(cors());
 
 // routes
 app.get("/", (req, res) => {
@@ -43,7 +43,7 @@ app.get("/tasks", async (req, res) => {
   }
 });
 
-// get one task
+// delete one task
 app.delete("/tasks/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -54,7 +54,7 @@ app.delete("/tasks/:id", async (req, res) => {
     res.json(`deleted task (${id}) successfully`);
     console.log(`deleted task (${id}) successfully`);
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
   }
 });
 
