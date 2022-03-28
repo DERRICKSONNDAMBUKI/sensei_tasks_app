@@ -1,42 +1,47 @@
 CREATE DATABASE tasksDB;
 CREATE TABLE taskTable(
-  task_id SERIAL PRIMARY KEY,
-  task_text VARCHAR(50),
-  task_day VARCHAR,
-  task_reminder BOOLEAN
+  id SERIAL PRIMARY KEY,
+  text VARCHAR(50),
+  day VARCHAR,
+  reminder BOOLEAN
 );
 SELECT
   *
 FROM
   taskTable;
 INSERT INTO
-  taskTable (task_text, task_day, task_reminder)
+  taskTable (text, day, reminder)
 VALUES($ 1, $ 2, $ 3) RETURNING *;
 SELECT
   *
 FROM
   taskTable
 WHERE
-  task_id = $ 1;
+  id = $ 1;
 UPDATE
   taskTable
 SET
-  task_text = $ 2 task_day = $ 3
+  text = $ 2 day = $ 3
 WHERE
-  task_id = $ 1;
+  id = $ 1;
 DELETE FROM
   taskTable
 WHERE
-  task_id = $ 1;
+  id = $ 1;
 INSERT INTO
-  taskTable (task_text, task_day, task_reminder)
+  taskTable (text, day, reminder)
 VALUES('Code js', 'Saturday', True);
 INSERT INTO
-  tasktable (task_id, task_text, task_day, task_reminder)
+  tasktable (id, text, day, reminder)
 VALUES
   (
-    task_id :integer,
+    id :integer,
     'Design shop',
     'Monday',
     True
   );
+
+ALTER TABLE tasktable RENAME COLUMN id TO id;
+ALTER TABLE tasktable RENAME COLUMN text TO text;
+ALTER TABLE tasktable RENAME COLUMN day TO day;
+ALTER TABLE tasktable RENAME COLUMN reminder TO reminder;

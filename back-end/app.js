@@ -19,10 +19,10 @@ app.get("/", (req, res) => {
 app.post("/tasks", async (req, res) => {
   try {
     console.log(req.body);
-    const { task_text, task_day, task_reminder } = req.body;
+    const { text, day, reminder } = req.body;
     const newTask = await pool.query(
-      "INSERT INTO taskTable (task_text, task_day, task_reminder) VALUES($1, $2, $3) RETURNING *;",
-      [task_text, task_day, task_reminder]
+      "INSERT INTO taskTable (text, day, reminder) VALUES($1, $2, $3) RETURNING *;",
+      [text, day, reminder]
     );
 
     res.json(newTask.rows[0]);
@@ -48,7 +48,7 @@ app.delete("/tasks/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const Tasks = await pool.query(
-      "DELETE FROM taskTable WHERE task_id = $1;",
+      "DELETE FROM taskTable WHERE id = $1;",
       [id]
     );
     res.json(`deleted task (${id}) successfully`);
